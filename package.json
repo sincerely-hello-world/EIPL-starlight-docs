@@ -1,0 +1,24 @@
+{
+  "name": "eipl-starlight-docs",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build && node scripts/prepare-cloudflare.mjs",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.42.8",
+    "astro": "^7.2.10",
+    "astro-mermaid": "^2.2.0",
+    "mermaid": "^12.3.0",
+    "sharp": "^0.35.3"
+  },
+  "devDependencies": {
+    "satteri": "0.10.5"
+  },
+  "private": true,
+  "packageManager": "pnpm@12.18.0"
+}
