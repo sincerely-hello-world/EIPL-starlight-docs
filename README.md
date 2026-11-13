@@ -29,9 +29,9 @@ pnpm preview
 | --- | --- | --- |
 | 文档首页 | `src/content/docs/index.mdx` | `/` |
 | 如何添加一篇文档 | `src/content/docs/guides/adding-documents.mdx` | `/guides/adding-documents/` |
-| Markdown 元素示例 | `src/content/docs/examples/markdown.md` | `/examples/markdown/` |
-| 内置 MDX 组件 | `src/content/docs/examples/components.mdx` | `/examples/components/` |
-| 页面配置速查 | `src/content/docs/reference/frontmatter.md` | `/reference/frontmatter/` |
+| Markdown 元素示例 | `src/content/docs/guides/markdown.md` | `/guides/markdown/` |
+| 内置 MDX 组件 | `src/content/docs/guides/components.mdx` | `/guides/components/` |
+| 页面配置速查 | `src/content/docs/guides/frontmatter.md` | `/guides/frontmatter/` |
 
 Markdown 示例包含标题、链接、代码高亮、增删行、四种提示框、表格、列表、引用、图片、文本文件树和折叠内容。
 

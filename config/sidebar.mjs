@@ -14,16 +14,8 @@ const sidebar = [
 		],
 	},
 	{
-		label: '写作指南',
+		label: 'astro静态文档使用参考',
 		items: [{ autogenerate: { directory: 'guides' } }],
-	},
-	{
-		label: '元素与组件示例',
-		items: [{ autogenerate: { directory: 'examples' } }],
-	},
-	{
-		label: '参考手册',
-		items: [{ autogenerate: { directory: 'reference' } }],
 	},
 ];
 

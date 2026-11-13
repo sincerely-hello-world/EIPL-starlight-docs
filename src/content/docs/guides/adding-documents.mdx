@@ -19,13 +19,13 @@ import { FileTree, Steps } from '@astrojs/starlight/components';
       - index.mdx 文档首页
       - guides
         - **adding-documents.mdx** 本页源码
-      - examples
         - markdown.md 基础元素示例
         - components.mdx 内置组件示例
-      - reference
         - frontmatter.md 页面配置速查
   - content.config.ts 内容集合定义
-- astro.config.mjs 站点标题、语言与导航
+- config
+  - sidebar.mjs 侧边栏目录
+- astro.config.mjs 站点标题、语言与集成
 - package.json 开发与构建命令
 
 </FileTree>
@@ -91,7 +91,7 @@ import { FileTree, Steps } from '@astrojs/starlight/components';
 
 4. **确认侧边栏和目录。**
 
-   当前站点对 `guides`、`examples`、`reference` 使用自动导航，新页面会出现在对应分组中。用 frontmatter 的 `sidebar.order` 调整自动导航中的顺序；正文的二、三级标题会进入页内目录。
+   当前站点对 `guides` 使用自动导航，新页面会出现在“astro静态文档使用参考”分组中。用 frontmatter 的 `sidebar.order` 调整自动导航中的顺序；正文的二、三级标题会进入页内目录。
 
 5. **构建并检查生产页面。**
 
@@ -115,7 +115,7 @@ import { FileTree, Steps } from '@astrojs/starlight/components';
 | `src/content/docs/guides/advanced/setup.mdx` | `/guides/advanced/setup/` |
 
 :::caution[路径与重命名]
-建议文件名使用英文小写和短横线，页面标题可以使用中文。重命名文件或修改 `slug` 会改变地址，需要同步检查站内链接。正文使用相对于当前页面地址的链接，例如本页到组件页使用 `../../examples/components/`。不要把仓库名写进站内链接；本地、Cloudflare 和 GitHub Pages 可以共用这些内容。
+建议文件名使用英文小写和短横线，页面标题可以使用中文。重命名文件或修改 `slug` 会改变地址，需要同步检查站内链接。正文使用相对于当前页面地址的链接，例如本页到组件页使用 `../components/`。不要把仓库名写进站内链接；本地、Cloudflare 和 GitHub Pages 可以共用这些内容。
 :::
 
 ## 什么时候改用 MDX
@@ -134,7 +134,7 @@ import { Aside, LinkCard } from '@astrojs/starlight/components';
   Starlight 已集成 MDX 支持，无需为这些内置组件安装 React。
 </Aside>
 
-<LinkCard title="查看完整组件示例" href="../../examples/components/" />
+<LinkCard title="查看完整组件示例" href="../components/" />
 ```
 
 :::note[MDX 的特殊字符]
@@ -143,15 +143,13 @@ MDX 会把花括号和标签当作表达式或组件语法。展示代码时请�
 
 ## 调整导航
 
-下面的配置片段位于 `astro.config.mjs` 的 `starlight({...})` 内，与当前项目的自动分组方式一致：
+侧边栏目录独立维护在 `config/sidebar.mjs` 中，由 `astro.config.mjs` 导入。以下是参考文档分组的配置：
 
-```js title="astro.config.mjs · starlight 配置片段"
-sidebar: [
-  { label: '文档首页', slug: '' },
-  { label: '写作指南', items: [{ autogenerate: { directory: 'guides' } }] },
-  { label: '元素与组件示例', items: [{ autogenerate: { directory: 'examples' } }] },
-  { label: '参考手册', items: [{ autogenerate: { directory: 'reference' } }] },
-],
+```js title="config/sidebar.mjs · 分组配置片段"
+{
+  label: 'astro静态文档使用参考',
+  items: [{ autogenerate: { directory: 'guides' } }],
+},
 ```
 
 若希望完全手动控制导航，可把分组 `items` 中的自动生成项替换成具体页面。只有文件确实存在时，才加入对应的 `slug`：
@@ -167,7 +165,7 @@ sidebar: [
 
 ## 下一步与官方资料
 
-- [Markdown 元素示例](../../examples/markdown/)：复制常用内容语法。
-- [MDX 内置组件示例](../../examples/components/)：查看全部正文组件。
-- [页面配置速查](../../reference/frontmatter/)：修改排序、目录和草稿状态。
+- [Markdown 元素示例](../markdown/)：复制常用内容语法。
+- [MDX 内置组件示例](../components/)：查看全部正文组件。
+- [页面配置速查](../frontmatter/)：修改排序、目录和草稿状态。
 - 官方：[Astro 内容集合](https://docs.astro.build/en/guides/content-collections/)、[Starlight 页面](https://starlight.astro.build/guides/pages/)、[侧边栏导航](https://starlight.astro.build/guides/sidebar/)。

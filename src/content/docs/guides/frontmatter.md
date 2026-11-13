@@ -2,7 +2,7 @@
 title: 页面配置速查
 description: 当前项目中常用的 frontmatter、导航配置和发布检查。
 sidebar:
-  order: 1
+  order: 4
 ---
 
 ## 一份可复制的页面头部
@@ -53,7 +53,8 @@ sidebar:
 
 ## 站点配置与页面配置
 
-- `astro.config.mjs`：站点标题、语言、侧边栏分组和社交链接。
+- `astro.config.mjs`：站点标题、语言、集成和社交链接。
+- `config/sidebar.mjs`：侧边栏目录分组与自动生成规则。
 - `src/content.config.ts`：文档内容集合和 frontmatter 校验规则。
 - 文档文件顶部：当前页面的标题、描述和排序。
 
@@ -93,7 +94,7 @@ GitHub Pages 工作流把 `configure-pages` 返回的站点域名和路径分别
 
 保持 Build command 为 `pnpm run build`、Deploy command 为 `npx wrangler@latest deploy`。构建脚本根据实际 `BASE_PATH` 生成 `dist-cloudflare/` 的目录结构，完全不使用 `assets.base_path`。使用子路径时，域名根路径会自动跳转到该子路径。
 
-正文和 MDX 的站内 `href` 使用相对页面地址，例如从 `/examples/components/` 链接到 `/guides/adding-documents/`，写成 `../../guides/adding-documents/`。这种写法在根路径、`/docs/` 和 GitHub Pages 仓库路径下都有效。侧边栏的 `slug` 与自动生成的 `directory` 仍使用文档标识。
+正文和 MDX 的站内 `href` 使用相对页面地址，例如从 `/guides/components/` 链接到 `/guides/adding-documents/`，写成 `../../guides/adding-documents/`。这种写法在根路径、`/docs/` 和 GitHub Pages 仓库路径下都有效。侧边栏的 `slug` 与自动生成的 `directory` 仍使用文档标识。
 
 包名称、仓库名称、Worker 名称和 URL 前缀是不同设置。更改名称不会自动改变 Cloudflare 的访问路径。
 

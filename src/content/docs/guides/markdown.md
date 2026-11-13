@@ -2,7 +2,7 @@
 title: Markdown 元素示例
 description: 可复制的代码块、提示框、警告、表格、文件树、图片和折叠内容写法。
 sidebar:
-  order: 1
+  order: 2
 ---
 
 这是一篇纯 `.md` 文档，不需要导入组件。每个示例先展示效果，再提供写法；打开本文件也可以直接复制完整源码。
@@ -155,8 +155,11 @@ src/
 │   └── docs/
 │       ├── index.mdx
 │       ├── guides/
-│       ├── examples/
-│       └── reference/
+│       │   ├── adding-documents.mdx
+│       │   ├── markdown.md
+│       │   ├── components.mdx
+│       │   └── frontmatter.md
+│       └── machine_intro/
 └── content.config.ts
 ```
 

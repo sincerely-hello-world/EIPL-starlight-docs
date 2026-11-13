@@ -1,32 +1,44 @@
 ---
-title: Astro 文档实验室
-description: 从第一篇文档开始，学习 Markdown 写作与 Starlight 内置 MDX 组件。
+title: EIPL-LAB文档
+description: 实验室服务器配置与基本使用说明，以及 Astro 静态文档写作参考。
 hero:
-  title: Astro 文档
-  tagline: 一边看效果，一边复制源码，搭建自己的中文文档站。
+  title: EIPL-LAB文档
+  tagline: 实验室服务器配置与使用说明，以及 Astro 文档写作参考。
   actions:
     - text: 添加第一篇文档
       link: ./guides/adding-documents/
       icon: right-arrow
     - text: 浏览组件示例
-      link: ./examples/components/
+      link: ./guides/components/
       variant: secondary
 ---
 
 import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-## 从这里开始
+## 服务器说明文档
+
+本文档是记录实验室的服务器配置和基本使用说明。
+
+<CardGrid>
+  <LinkCard title="服务器状态与登录汇总" href="./machine_intro/eipl实验室服务器状态汇总/" description="查看五台服务器的硬件配置、负责人、SSH 端口、1Panel 入口和数据盘安排。" />
+  <LinkCard title="1 号机普通用户使用手册" href="./machine_intro/manuals/eipl01/" description="了解首次登录、个人数据目录、公共 PyTorch 环境，以及 VS Code 远程开发和训练。" />
+  <LinkCard title="2 号机普通用户使用手册" href="./machine_intro/manuals/eipl02/" description="查看个人账号与 SSH 配置，了解数据盘目录、存储分配和文件存放建议。" />
+  <LinkCard title="3 号机普通用户使用手册" href="./machine_intro/manuals/eipl03/" description="了解登录和数据存放方式，启用公共 Python 与 PyTorch 环境，并选择显卡运行训练。" />
+  <LinkCard title="5 号机普通用户使用手册" href="./machine_intro/manuals/eipl05/" description="了解首次登录、公共 Conda 与个人环境、文件上传，以及训练任务和日志管理。" />
+</CardGrid>
+
+## 了解astro文档
 
 这个项目使用 Astro 与 Starlight。页面源码都在 `src/content/docs/` 中；打开源码，可以同时看到写法与网页中的实际效果。
 
 <CardGrid>
   <LinkCard title="如何添加文档" href="./guides/adding-documents/" description="认识目录、页面地址、frontmatter、侧边栏和本地构建。" />
-  <LinkCard title="Markdown 元素" href="./examples/markdown/" description="试用代码块、提示与警告、表格、图片、列表和折叠内容。" />
-  <LinkCard title="Starlight MDX 组件" href="./examples/components/" description="查看全部 12 个正文组件的效果和可复制用法。" />
-  <LinkCard title="页面配置速查" href="./reference/frontmatter/" description="快速找到标题、排序、目录层级和草稿等常用设置。" />
+  <LinkCard title="Markdown 元素" href="./guides/markdown/" description="试用代码块、提示与警告、表格、图片、列表和折叠内容。" />
+  <LinkCard title="Starlight MDX 组件" href="./guides/components/" description="查看全部 12 个正文组件的效果和可复制用法。" />
+  <LinkCard title="页面配置速查" href="./guides/frontmatter/" description="快速找到标题、排序、目录层级和草稿等常用设置。" />
 </CardGrid>
 
-## 选择合适的写法
+选择合适的写法
 
 <CardGrid>
   <Card title="日常说明用 Markdown" icon="document">
