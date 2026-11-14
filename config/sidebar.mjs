@@ -20,3 +20,6 @@ const sidebar = [
 ];
 
 export default sidebar;
+
+// Appended at request time in CMS mode, after all repository documentation.
+export const emdashSection = { label: 'emdash文档', path: '/emdash/' };

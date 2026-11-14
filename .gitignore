@@ -1,6 +1,7 @@
 # build output
 dist/
 dist-cloudflare/
+dist-cms/
 .wrangler/
 # generated types
 .astro/
@@ -19,6 +20,13 @@ pnpm-debug.log*
 .env
 .env.*
 !.env.example
+
+# Local EmDash content, uploads, and generated content-model types
+data.db
+data.db-*
+uploads/
+emdash-env.d.ts
+.emdash/migrations.json
 
 # macOS-specific files
 .DS_Store

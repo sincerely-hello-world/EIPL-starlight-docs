@@ -1,0 +1,24 @@
+---
+import DocumentLayout from '../../layouts/DocumentLayout.astro';
+import { getEmDashEntry } from 'emdash';
+import { PortableText } from 'emdash/ui';
+import { contentTypes, type CmsDocumentData } from '../documents';
+import { emdashSection } from '../../../config/sidebar.mjs';
+import { pastedMarkdown, parseMarkdown } from '../../components/content/markdown.mjs';
+import MarkdownContent from '../../components/content/MarkdownContent.astro';
+import CodeBlock from '../../components/content/CodeBlock.astro';
+
+export const prerender = false;
+const type = Astro.url.pathname.slice(emdashSection.path.length).split('/')[0];
+if (!contentTypes.includes(type)) return new Response('Not found', { status: 404 });
+const { entry, error } = await getEmDashEntry<string, CmsDocumentData>(type, Astro.params.slug ?? '');
+if (error) throw error;
+if (!entry) Astro.response.status = 404;
+const markdownSource = pastedMarkdown(entry?.data.content);
+const markdown = markdownSource === null ? null : parseMarkdown(markdownSource);
+---
+
+<DocumentLayout headings={markdown?.headings ?? []} frontmatter={{ title: entry?.data.title ?? '文档未找到', tableOfContents: markdown ? undefined : false, editUrl: false }}>
+	{entry ? markdown ? <MarkdownContent parts={markdown.parts} /> : <PortableText value={entry.data.content ?? []} components={{ type: { code: CodeBlock } }} /> : <p>该文档不存在或尚未发布。</p>}
+	<p><a href={emdashSection.path}>返回文档总览</a></p>
+</DocumentLayout>

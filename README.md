@@ -45,7 +45,7 @@ MDX 示例覆盖当前 Starlight 导出的全部 12 个正文组件：`Aside`、
 4. 本项目自动生成分组导航，用 `sidebar.order` 设置顺序。
 5. 执行 `pnpm build` 并预览检查。
 
-为确保当前版本的 `FileTree` 在生产构建中可用，项目显式声明了 `satteri` 开发依赖，并在 Vite 配置中将其保留为外部模块，以正确加载原生解析组件。
+为确保当前版本的 `FileTree` 和 CMS Markdown 解析可用，项目显式声明了 `satteri` 运行时依赖，并在 Vite 配置中将其保留为外部模块，以正确加载原生解析组件。
 
 站点标题、中文界面与集成在 `astro.config.mjs` 配置，导航分组在 `config/sidebar.mjs` 配置。本地开发与 Cloudflare 默认从域名根路径 `/` 访问。URL 前缀由 `BASE_PATH` 控制，与项目、包、仓库及 Worker 名称分开。
 

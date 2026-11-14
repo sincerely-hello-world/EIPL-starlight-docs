@@ -1,0 +1,20 @@
+---
+import { Aside, Code } from '@astrojs/starlight/components';
+import Heading from '@astrojs/starlight/components/AnchorHeading.astro';
+
+type Part =
+	| { type: 'code'; code: string; lang: string; meta: string }
+	| { type: 'aside'; variant: 'note' | 'tip' | 'caution' | 'danger'; title?: string; parts: Part[] }
+	| { type: 'heading'; level: 1 | 2 | 3 | 4 | 5 | 6; slug: string; html: string }
+	| { type: 'html'; html: string };
+interface Props { parts: Part[] }
+const { parts } = Astro.props;
+---
+
+{parts.map((part) => part.type === 'code' ? (
+	<Code code={part.code} lang={part.lang} meta={part.meta} />
+) : part.type === 'aside' ? (
+	<Aside type={part.variant} title={part.title}><Astro.self parts={part.parts} /></Aside>
+) : part.type === 'heading' ? (
+	<Heading level={part.level} id={part.slug}><Fragment set:html={part.html} /></Heading>
+) : <Fragment set:html={part.html} />)}

@@ -1,0 +1,7 @@
+---
+import { Code } from '@astrojs/starlight/components';
+interface Props { node: { code?: string; language?: string; filename?: string } }
+const { node } = Astro.props;
+---
+
+{node.code?.trim() && <Code code={node.code} lang={node.language || 'text'} title={node.filename} />}

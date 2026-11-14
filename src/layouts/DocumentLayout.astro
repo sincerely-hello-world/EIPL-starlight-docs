@@ -1,0 +1,8 @@
+---
+// Keep a direct Astro-component import so Astro includes the theme's styles
+// and scripts when collecting page assets. No separate CMS styles are added.
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import type { StarlightPageProps as Props } from '@astrojs/starlight/components/StarlightPage.astro';
+---
+
+<StarlightPage {...Astro.props}><slot /></StarlightPage>

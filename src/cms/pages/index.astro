@@ -1,0 +1,13 @@
+---
+import DocumentLayout from '../../layouts/DocumentLayout.astro';
+import { getDocuments } from '../documents';
+
+export const prerender = false;
+const documents = await getDocuments(Astro.locals);
+---
+
+<DocumentLayout frontmatter={{ title: 'emdash文档', description: '通过 EmDash 发布的文档。', tableOfContents: false }}>
+	{documents.length ? (
+		<ul>{documents.map((doc) => <li><a href={doc.href}>{doc.title}</a></li>)}</ul>
+	) : <p>暂无已发布文档。</p>}
+</DocumentLayout>

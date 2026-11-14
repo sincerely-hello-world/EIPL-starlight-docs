@@ -1,0 +1,8 @@
+---
+import { documentHref } from '../documents';
+import { emdashSection } from '../../../config/sidebar.mjs';
+
+export const prerender = false;
+const target = Astro.params.slug ? documentHref('posts', Astro.params.slug) : emdashSection.path;
+return Astro.redirect(target + Astro.url.search, 301);
+---
