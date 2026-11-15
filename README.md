@@ -28,10 +28,10 @@ pnpm preview
 | 页面 | 源码 | 地址 |
 | --- | --- | --- |
 | 文档首页 | `src/content/docs/index.mdx` | `/` |
-| 如何添加一篇文档 | `src/content/docs/guides/adding-documents.mdx` | `/guides/adding-documents/` |
-| Markdown 元素示例 | `src/content/docs/guides/markdown.md` | `/guides/markdown/` |
-| 内置 MDX 组件 | `src/content/docs/guides/components.mdx` | `/guides/components/` |
-| 页面配置速查 | `src/content/docs/guides/frontmatter.md` | `/guides/frontmatter/` |
+| 如何添加一篇文档 | `src/content/docs/write_guides/adding-documents.mdx` | `/write_guides/adding-documents/` |
+| Markdown 元素示例 | `src/content/docs/write_guides/markdown.md` | `/write_guides/markdown/` |
+| 内置 MDX 组件 | `src/content/docs/write_guides/components.mdx` | `/write_guides/components/` |
+| 页面配置速查 | `src/content/docs/write_guides/frontmatter.md` | `/write_guides/frontmatter/` |
 
 Markdown 示例包含标题、链接、代码高亮、增删行、四种提示框、表格、列表、引用、图片、文本文件树和折叠内容。
 
@@ -39,7 +39,7 @@ MDX 示例覆盖当前 Starlight 导出的全部 12 个正文组件：`Aside`、
 
 ## 添加自己的文档
 
-1. 在 `src/content/docs/guides/` 下新建 `.md` 或 `.mdx`。
+1. 在 `src/content/docs/write_guides/` 下新建 `.md` 或 `.mdx`。
 2. 在文件顶部添加 frontmatter，例如 `title` 和 `description`。
 3. 编写正文；需要组件时使用 `.mdx` 并导入组件。
 4. 本项目自动生成分组导航，用 `sidebar.order` 设置顺序。

@@ -1,0 +1,247 @@
+---
+title: 如何添加一篇文档
+description: 选择文档目录和文件类型，编写内容，并通过 sidebar.mjs 组织导航。
+sidebar:
+  order: 1
+  badge:
+    text: 网站说明
+    variant: tip
+---
+
+日常添加文章，先选好目录，再创建带有 `title` 的 `.md` 文件即可。纯 Markdown 写作不需要了解 Astro 组件。
+
+## 文档放在哪里
+
+所有文章统一放在 `src/content/docs/` 下，按内容选择目录：
+
+| 目录 | 放什么内容 | 示例 |
+| --- | --- | --- |
+| `src/content/docs/machine_intro/` | 实验室服务器介绍、配置与使用说明 | 服务器状态汇总；各机器手册放在 `manuals/` 下 |
+| `src/content/docs/env_guides/` | 开发环境、语言和包管理工具教程 | `mise.md`、`nodejs.md`、`python.md` |
+| `src/content/docs/others/` | 暂时不属于以上分类的其他说明 | 新建 `faq.md` 记录通用问题；目前该目录为空 |
+| `src/content/docs/write_guides/` | 本文档站的写作与维护指南 | 本页、Markdown 示例和页面配置速查 |
+
+例如，新增工具安装教程应放入 `env_guides/`，新增服务器手册应放入 `machine_intro/manuals/`。`write_guides/` 专门讲解文档站本身，不作为所有新文章的默认位置。
+
+```text title="文档目录"
+src/content/docs/
+├── index.mdx                 文档首页
+├── machine_intro/           服务器说明
+│   ├── eipl实验室服务器状态汇总.mdx
+│   └── manuals/             各机器使用手册
+├── env_guides/              环境与包管理
+│   ├── mise.md
+│   ├── nodejs.md
+│   └── python.md
+├── others/                  其他说明，目前为空
+└── write_guides/            文档站写作指南
+    ├── adding-documents.mdx
+    ├── markdown.md
+    ├── components.mdx
+    └── frontmatter.md
+```
+
+`public/` 用于静态资源，`src/assets/` 用于图片等资源，配置文件旁也不放文章。本项目已配置 Starlight 内容集合，普通文章无需在 `src/pages/` 中另外创建页面。
+
+## 文件类型怎么选
+
+- **`.md`（Markdown）：基础文本首选。** 文章、教程、说明书大多只需要标题、段落、列表、表格、图片和代码块，用 `.md` 完全足够，不需要导入组件。
+- **`.mdx`（Markdown + JSX）：文档与组件结合。** 需要在正文中使用 Starlight 自带组件，或自定义 Astro、React、Vue 等组件时选择它。Starlight 提供的卡片、标签页等组件可直接导入；React、Vue 组件还需要站点配置相应框架集成，并非修改扩展名就能使用。
+- **`.astro`：自定义组件或特殊布局。** 适合维护网站界面，通常放在 `src/components/` 或 `src/layouts/`，不作为本项目文章的文件类型。
+- **`.mjs`：JavaScript 模块。** 用于配置和脚本，例如 `astro.config.mjs`、`config/sidebar.mjs`，不用于编写文章。
+
+需要 MDX 时再查看 [组件示例](../components/)。只写普通文章，可以一直使用 `.md`。
+
+## 项目中其他文件的作用
+
+- `config/sidebar.mjs`：侧边栏分组、页面入口和自动导航目录。
+- `astro.config.mjs`：站点标题、语言、发布路径和集成配置，并导入侧边栏配置。
+- `src/content.config.ts`：定义文档内容集合和字段校验，例如 `title` 必填。
+- `package.json`：项目依赖与开发、构建命令。
+- `pnpm-lock.yaml`：锁定依赖版本，修改依赖后随 `package.json` 一起提交。
+- `mise.toml`：本项目的 Node.js 和 pnpm 工具版本。
+- `tsconfig.json`：TypeScript 和编辑器检查配置。
+- `scripts/prepare-cloudflare.mjs`：整理 Cloudflare 发布产物的脚本。
+- `wrangler.jsonc`：Cloudflare 发布配置。
+- `.github/workflows/`：自动构建与发布流程。
+- `README.md`：项目入口说明。
+- `node_modules/`：安装的依赖；`dist/`、`dist-cloudflare/`：构建产物。这些目录由工具生成，不直接修改，也不放文章源码。
+
+## 新建一篇 Markdown 文档
+
+以新增环境工具教程为例，创建 `src/content/docs/env_guides/new-tool.md`：
+
+```md title="src/content/docs/env_guides/new-tool.md"
+---
+title: 新工具使用说明 # 必需：页面标题，也是默认导航文字
+description: 介绍工具安装、基本用法与常见问题。 # 可选，建议：页面摘要
+sidebar: # 可选：侧边栏设置
+  label: 新工具 # 可选：导航短名称，省略时使用 title
+  order: 4 # 可选：同组自动导航中，数字越小越靠前
+  badge: # 可选：导航旁的小标签，不需要时删除
+    text: 新 # 徽章对象中必需：标签文字
+    variant: tip # 可选：标签样式，默认为 default
+draft: false # 可选：false 正常发布，true 为草稿
+---
+
+这里用一两句话说明工具的用途。
+
+## 安装
+
+填写安装步骤。
+
+## 基本用法
+
+填写常用命令。
+```
+
+文件顶部由两行 `---` 包围的 YAML 配置称为 **frontmatter**。当前项目只有 `title` 必填，`description` 建议填写，其余按需保留；徽章使用对象写法时，内部的 `text` 也必须填写。正文从二级标题开始即可，页面大标题会自动生成。完整分类见 [页面配置速查](../frontmatter/)。
+
+以本页为例：
+
+```yaml
+---
+title: 如何添加一篇文档 # 必需：页面标题
+description: 选择文档目录和文件类型，编写内容，并通过 sidebar.mjs 组织导航。 # 可选，建议：页面摘要
+sidebar: # 可选：导航设置
+  order: 1 # 可选：自动导航中数字越小，位置越靠前
+---
+```
+
+没有填写 `sidebar.label` 时，侧边栏默认使用 `title`，所以本页显示为 **“如何添加一篇文档”**。只有希望导航文字更短，或与页面大标题不同时，才需要单独添加 `sidebar.label`，例如：
+
+```yaml
+sidebar:
+  label: 添加文档
+  order: 1
+```
+
+`sidebar.order: 1` 是排序值，不是固定的第一位。同一自动导航分组内，`0` 排在 `1` 前，`1` 排在 `2` 前；未设置排序值的页面排在已设置的页面之后。
+
+## 用 sidebar.mjs 组织侧边栏
+
+`config/sidebar.mjs` 定义读者看到的导航树，`astro.config.mjs` 已将它导入。文章放在哪个文件夹，与侧边栏如何分组，是通过这里的配置关联起来的。
+
+### 当前导航配置
+
+```js title="config/sidebar.mjs · sidebar 数组"
+const manualSidebar = [
+  { label: '文档首页', slug: '' },
+  {
+    label: '实验室服务器',
+    items: [
+      { slug: 'machine_intro/eipl实验室服务器状态汇总' },
+      {
+        label: '各机器使用手册',
+        items: [{ autogenerate: { directory: 'machine_intro/manuals' } }],
+      },
+    ],
+  },
+  {
+    label: '开发环境与包管理',
+    items: [{ autogenerate: { directory: 'env_guides' } }],
+  },
+  {
+    label: 'astro静态文档使用参考',
+    items: [{ autogenerate: { directory: 'write_guides' } }],
+  },
+  {
+    label: '其他',
+    items: [{ autogenerate: { directory: 'others' } }],
+  },
+];
+```
+
+这段配置对应下面的导航结构：
+
+```text
+文档首页
+实验室服务器
+├── 服务器状态汇总页
+└── 各机器使用手册
+    └── 自动读取 machine_intro/manuals/ 中的文章
+开发环境与包管理
+└── 自动读取 env_guides/ 中的文章
+astro静态文档使用参考
+└── 自动读取 write_guides/ 中的文章
+其他
+└── 自动读取 others/ 中的文章
+```
+
+| 字段 | 用途 |
+| --- | --- |
+| `label` | 页面入口或分组显示的文字 |
+| `items` | 当前分组下的页面或子分组，可以继续嵌套 |
+| `slug` | 手动指定某一篇文章的标识，不写 `.md` / `.mdx` 扩展名 |
+| `autogenerate.directory` | 自动读取的目录，相对于 `src/content/docs/`，不写绝对路径 |
+
+`manualSidebar` 数组和手动 `items` 的先后顺序决定导航顺序；自动读取目录中的文章则通过各自的 `sidebar.order` 调整顺序。配置文件中的 `createSidebar()` 会保留这些手动分组，再自动追加未配置的同级目录。
+
+### 新增目录与文章是否需要改配置
+
+- 放入 `env_guides/`、`write_guides/`、`others/` 或 `machine_intro/manuals/`：已经配置自动导航，新增文章会自动出现。
+- 放入 `machine_intro/` 根目录：当前这里只手动列出了服务器汇总页，新文章仍需要增加对应 `slug`，或调整该分组的自动导航范围。
+- 在 `src/content/docs/` 下新建其他同级目录：自动扫描并追加为顶层分组，默认以目录名作为分组名称，其下文章自动生成导航。
+
+例如，新建 `src/content/docs/research_notes/` 并添加带有 `title` 的 `.md` 文档后，无需修改配置，就会在现有手动分组之后出现 `research_notes` 分组。新目录按名称排序，隐藏目录不参与扫描；空目录虽然会被扫描，但没有可展示的文章。
+
+扫描在配置加载时执行。新增顶层目录后，重新启动开发服务器或重新构建即可加载：
+
+```sh
+pnpm astro dev stop
+pnpm astro dev --background
+```
+
+如果希望使用中文名称、指定位置或自定义层级，在 `manualSidebar` 数组中加入对应分组，例如：
+
+```js
+{
+  label: '研究笔记',
+  items: [{ autogenerate: { directory: 'research_notes' } }],
+},
+```
+
+扫描会递归检查手动配置中的 `slug` 和 `autogenerate.directory`：只要已经引用某个顶层目录，就不会再自动追加该目录，避免重复导航。现有手动分组的名称、顺序和嵌套结构保持不变。导航字段规则见 [Starlight 侧边栏说明](https://starlight.astro.build/guides/sidebar/)。
+
+## 页面地址与链接
+
+默认情况下，页面地址由文档路径生成：
+
+| 文档文件 | 页面地址 |
+| --- | --- |
+| `src/content/docs/env_guides/new-tool.md` | `/env_guides/new-tool/` |
+| `src/content/docs/others/faq.md` | `/others/faq/` |
+| `src/content/docs/write_guides/adding-documents.mdx` | `/write_guides/adding-documents/` |
+
+上述新增文件名仅作示例。文档设置了 `slug` 时，以自定义地址为准。重命名文件或移动目录后，需要同步检查页面链接与手动导航中的 `slug`。
+
+正文使用页面之间的相对链接，例如本页到 Python 指南使用 `../../env_guides/python/`。不要写入本机绝对路径或仓库名称，这样根路径、GitHub Pages 和配置了 `BASE_PATH` 的部署可以共用内容。
+
+## 本地预览与提交检查
+
+在项目根目录准备环境并启动：
+
+```sh
+mise install
+pnpm install
+pnpm astro dev --background
+pnpm astro dev status
+```
+
+首次配置 mise 时，参照 [mise 指南](../../env_guides/mise/)。根据终端输出打开本地地址，检查新文章、侧边栏和链接。
+
+```sh
+pnpm astro dev logs
+pnpm astro dev stop
+pnpm build
+pnpm preview
+```
+
+提交前确认：文章放入合适目录、有必填的 `title`、导航能找到页面、构建通过。使用预览检查生产页面和搜索。
+
+## 继续阅读
+
+- [Markdown 元素示例](../markdown/)：标题、列表、表格、图片和代码块。
+- [MDX 内置组件示例](../components/)：需要组合组件时查阅。
+- [页面配置速查](../frontmatter/)：更多 frontmatter 设置。
+- [Astro 组件](https://docs.astro.build/en/basics/astro-components/)与[框架组件](https://docs.astro.build/en/guides/framework-components/)：需要维护界面时查阅。

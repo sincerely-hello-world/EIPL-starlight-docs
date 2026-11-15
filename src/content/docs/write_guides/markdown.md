@@ -3,20 +3,22 @@ title: Markdown 元素示例
 description: 可复制的代码块、提示框、警告、表格、文件树、图片和折叠内容写法。
 sidebar:
   order: 2
+  badge:
+    text: 网站说明
+    variant: tip
 ---
-
 这是一篇纯 `.md` 文档，不需要导入组件。每个示例先展示效果，再提供写法；打开本文件也可以直接复制完整源码。
 
 ## 标题、文字与链接
 
-用 **加粗** 强调重点，用 *斜体* 补充语气，用 `pnpm build` 表示命令。阅读[添加文档教程](../../guides/adding-documents/)，或者跳转到本页的[表格](#表格)。
+用 **加粗** 强调重点，用 *斜体* 补充语气，用 `pnpm build` 表示命令。阅读[添加文档教程](../../write_guides/adding-documents/)，或者跳转到本页的[表格](#表格)。
 
 ```md
 ## 二级标题
 ### 三级标题
 
 用 **加粗** 强调重点，用 *斜体* 补充语气，用 `pnpm build` 表示命令。
-[添加文档教程](../../guides/adding-documents/)
+[添加文档教程](../../write_guides/adding-documents/)
 ```
 
 页面主标题由 frontmatter 的 `title` 生成，正文通常从 `##` 开始。
@@ -63,7 +65,7 @@ Starlight 的提示类型为 `note`、`tip`、`caution`、`danger`。常说的 t
 
 ### 命令与文件标题
 
-```sh title="在项目根目录运行"
+```sh
 pnpm install
 pnpm build
 ```
@@ -79,13 +81,13 @@ pnpm build
 
 Starlight 默认使用 Expressive Code 渲染代码块。下面分别演示行高亮和增删行：
 
-```js title="站点名称" {2}
+```js
 const config = {
   title: '我的中文文档',
 };
 ```
 
-```js title="修改前后" del={1} ins={2}
+```js
 const title = 'My Docs';
 const title = 'Astro 文档实验室';
 ```
@@ -107,11 +109,11 @@ const title = 'Astro 文档实验室';
 
 ## 表格
 
-| 需求 | 推荐格式 | 是否导入组件 |
-| :--- | :---: | ---: |
-| 正文、列表、表格 | `.md` | 否 |
-| 提示与警告 | `.md` 或 `.mdx` | 指令语法无需导入 |
-| 标签页、卡片、文件树组件 | `.mdx` | 是 |
+| 需求                     |      推荐格式      |     是否导入组件 |
+| :----------------------- | :-----------------: | ---------------: |
+| 正文、列表、表格         |       `.md`       |               否 |
+| 提示与警告               | `.md` 或 `.mdx` | 指令语法无需导入 |
+| 标签页、卡片、文件树组件 |      `.mdx`      |               是 |
 
 ```md
 | 需求 | 推荐格式 | 是否导入组件 |
@@ -149,12 +151,12 @@ const title = 'Astro 文档实验室';
 
 纯 Markdown 可以用 `text` 代码块展示目录：
 
-```text title="文档目录"
+```text
 src/
 ├── content/
 │   └── docs/
 │       ├── index.mdx
-│       ├── guides/
+│       ├── write_guides/
 │       │   ├── adding-documents.mdx
 │       │   ├── markdown.md
 │       │   ├── components.mdx
